@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body width="100vw" height="100vh" bgcolor="#000000">
+<canvas id="myCanvas" width="1100" height="620" style="border:1px"/>
+
+    <script>
+		var moveLeft = false;
+		var moveUp = false;
+		var positionX = 50;
+		var positionY = 355;
+		var radius = 35;
+        function boll(){
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+			ctx.clearRect(0, 0, c.width, c.height);
+            ctx.fillStyle = "rgb(" + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + "," + Math.floor((Math.random() * 255)) + ")";
+            ctx.fill();
+			ctx.beginPath();
+			ctx.arc(positionX, positionY, radius, 0, 2*Math.PI);
+            ctx.stroke();
+        }
+        function move(){
+			if(!(positionX + radius / 2 < 1000 && positionX + radius / 2 > 0)) {
+				if(positionX <= radius)
+					moveLeft = false;
+				else if(positionX >= 1000 - radius)
+					moveLeft = true;
+			}
+			if(moveLeft)
+				positionX -= 1;
+			else
+				positionX += 1;
+				
+			if(!(positionY - radius < 600 && positionY - radius > 0)) {
+				if(positionY <= 0)
+					moveUp = false;
+				else if(positionY >= 600)
+					moveUp = true;
+			}
+			if(moveUp)
+				positionY -= 1;
+			else
+				positionY += 1;
+            boll();
+        }
+		setInterval(function(){ move(); }, 1);
+		boll();
+    </script>
+</body>
+</html>
+
